@@ -3,6 +3,13 @@ cmake_minimum_required(VERSION 3.31)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+find_program(buildcache_program NAMES buildcache.exe)
+if(buildcache_program)
+  set(CMAKE_CXX_COMPILER_LAUNCHER ${buildcache_program})
+else()
+  message(FATAL_ERROR "buildcache.exe not found")
+endif()
+
 project(HelloWorld LANGUAGES CXX)
 add_executable(hello main.cpp)
 
