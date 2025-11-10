@@ -12,6 +12,8 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
+              with:
+                  path: src
 
             - name: Setup buildcache
               uses: CeetronSolutions/setup-buildcache-action@v1.0
@@ -25,7 +27,9 @@ jobs:
               uses: ilammy/msvc-dev-cmd@v1
 
             - name: Configure CMake
-              run: cmake -B build -S . -G Ninja -DCMAKE_CXX_COMPILER=cl
+              working-directory: src
+              run: cmake -B b -S . -G Ninja -DCMAKE_CXX_COMPILER=cl
 
             - name: Build
-              run: cmake --build build --config Release -v
+              working-directory: src
+              run: cmake --build b --config Release -v
